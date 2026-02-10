@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>💖 GODMODE Cinematic Valentine 💖</title>
+
+<style>
+*{box-sizing:border-box;font-family:'Comic Sans MS','Poppins',cursive;}
+
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  perspective:1000px;
+  position:relative;
+}
+
+.slide{
+  display:none;
+  background:white;
+  padding:35px;
+  border-radius:30px;
+  width:90%;
+  max-width:420px;
+  text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.3);
+  animation:pop .6s ease;
+}
+
+.slide.active{display:block}
+
+h1{color:#ff2f68;}
+p{font-size:18px;}
+
+button{
+  border:none;
+  border-radius:40px;
+  padding:14px 28px;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.btn-main{
+  background:#ff2f68;
+  color:white;
+  box-shadow:0 10px 25px rgba(255,26,140,.6);
+}
+
+.buttons{margin-top:25px;position:relative;height:70px;}
+
+#no{
+  position:absolute;
+  right:0;
+  background:#ddd;
+  color:#333;
+}
+
+.heart, .confetti, .driftText{
+  position:fixed;
+}
+
+.heart{
+  top:-30px;
+  font-size:26px;
+  animation:fall linear forwards;
+}
+
+.confetti{
+  width:12px;
+  height:12px;
+  border-radius:4px;
+  top:-10px;
+  animation:confetti linear forwards;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+
+@keyframes confetti{
+  to{transform:translateY(110vh) rotate(720deg);opacity:0;}
+}
+
+@keyframes pop{
+  from{transform:scale(.6);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* 3D cinematic drift */
+@keyframes drift3D{
+  0%{top:-200px; opacity:0; transform:translateX(-50%) rotateX(0deg) rotateY(0deg) rotateZ(-30deg) scale(0.5);}
+  50%{opacity:1; transform:translateX(-50%) rotateX(180deg) rotateY(180deg) rotateZ(0deg) scale(1.2);}
+  100%{top:40%; opacity:1; transform:translateX(-50%) rotateX(360deg) rotateY(360deg) rotateZ(0deg) scale(1);}
+}
+
+.flash{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:pink;
+  opacity:0;
+  pointer-events:none;
+  animation:flash 0.5s ease;
+}
+
+@keyframes flash{
+  0%{opacity:0;}
+  50%{opacity:0.8;}
+  100%{opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="flash" id="flash"></div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_7e3c96b1b1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SLIDES 1-7 sama seperti versi sebelumnya -->
+<div class="slide active">
+  <h1>💌 HALO KAMU 💌</h1>
+  <p>Dari sekian banyak manusia,<br>kenapa aku malah jatuhnya ke kamu?<br>(iya kamu 😠💖)</p>
+  <p><b>Mau jadi Valentine aku?</b></p>
+  <div class="buttons">
+    <button class="btn-main" id="yes">YES 😳💘</button>
+    <button id="no">NO 🙄</button>
+  </div>
+</div>
+
+<div class="slide"><h1>😌 AKU TAU KOK</h1><p>Kamu sebenernya mau nolak,<br> tapi hatimu berkata lain 💅</p><button class="btn-main next">LANJUT 😏</button></div>
+
+<div class="slide"><h1>🤡 FAKTA PENTING</h1><p>Kamu itu: lucu ❌ gemes ❌ bikin aku bucin ✅</p><button class="btn-main next">AKU MALU 😳</button></div>
+
+<div class="slide"><h1>🎭 DRAMA DIMULAI</h1><p>Tanpa kamu… hidupku kayak kopi tanpa gula… pahit 😔</p><button class="btn-main next">LANJUT 😢</button></div>
+
+<div class="slide"><h1>💖 SERIUS NIH</h1><p>Aku tetap milih kamu. Berkali-kali. Tanpa ragu 🥹</p><button class="btn-main next">💘</button></div>
+
+<div class="slide"><h1>😠 EH TAPI</h1><p>Jangan GR dulu ya, aku bucin dikit kok 😤</p><button class="btn-main next">HAHA 😆</button></div>
+
+<div class="slide"><h1>💘 HAPPY VALENTINE 💘</h1><p>Makasih udah jadi orang paling special ❤️</p><button class="btn-main next">💗 KLIMAKS 💗</button></div>
+
+<!-- SLIDE 8 - 3D Cinematic I LOVE YOU -->
+<div class="slide" id="s8">
+  <div class="driftText" style="font-size:60px; color:#ff1a8c; font-weight:bold; text-shadow:0 0 30px #ff66b2; left:50%; transform:translateX(-50%); animation:drift3D 3s forwards;">I LOVE YOU!!! 😭💘</div>
+  <p style="font-size:22px; color:#ff4da6; text-align:center;">
+    Dari hati terdalam aku mau bilang ini…<br>
+    Kamu spesial banget buat aku 🥹💗
+  </p>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let index=0;
+
+const yes=document.getElementById('yes');
+const no=document.getElementById('no');
+const music=document.getElementById('music');
+const flash=document.getElementById('flash');
+
+no.addEventListener('mouseover',()=>{
+  no.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*100-50}px)`;
+});
+
+yes.addEventListener('click',start);
+
+document.querySelectorAll('.next').forEach(b=>{
+  b.addEventListener('click',nextSlide);
+});
+
+function start(){
+  music.play();
+  vibrate();
+  hearts();
+  confetti();
+  nextSlide();
+}
+
+function nextSlide(){
+  slides[index].classList.remove('active');
+  index++;
+  if(index >= slides.length){ index = slides.length - 1; }
+  slides[index].classList.add('active');
+  vibrate();
+  hearts();
+  confetti();
+
+  // flash effect if cinematic slide
+  if(slides[index].id==='s8'){
+    flash.style.animation='flash 0.5s ease';
+    setTimeout(()=>{flash.style.animation='';},500);
+  }
+}
+
+function vibrate(){
+  if(navigator.vibrate){ navigator.vibrate([120,60,120]); }
+}
+
+function hearts(){
+  for(let i=0;i<22;i++){
+    const h=document.createElement('div');
+    h.className='heart';
+    h.innerHTML=Math.random()>0.5?'💖':'💘';
+    h.style.left=Math.random()*100+'vw';
+    h.style.animationDuration=2+Math.random()*3+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  }
+}
+
+function confetti(){
+  for(let i=0;i<35;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=`hsl(${330+Math.random()*30},100%,70%)`;
+    c.style.animationDuration=2+Math.random()*3+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+</script>
+
+</body>
+</html>
